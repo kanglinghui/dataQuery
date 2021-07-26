@@ -63,13 +63,13 @@
             <i
               v-if="mobile"
               @click="isMenu = !isMenu"
-              style="margin-right: 10px"
+              style="margin-right: 10px; z-index: 3"
               :class="isMenu ? 'el-icon-s-fold' : 'el-icon-s-unfold'"
             ></i>
             <el-button
               size="mini"
               icon="el-icon-refresh"
-              style="margin-bottom: 20px"
+              style="margin-bottom: 20px; z-index: 3"
               @click="rest"
               plain
               >刷 新</el-button
@@ -84,9 +84,15 @@
                 : ''
             "
           >
-            {{
+            <span v-if="weather">{{
               `${weather.date}（${weather.week}）${weather.wea_day} ${weather.tem2} ~ ${weather.tem1} 上海市 空气质量${weather.air_level}`
-            }}
+            }}</span>
+            <span
+              class="weatherErr"
+              v-if="weatherError && !weather"
+              @click="weatherLoad"
+              >{{ weatherError }}</span
+            >
           </p>
           <el-table
             size="mini"
@@ -195,6 +201,7 @@ export default {
       isMenu: true,
       mobile: false,
       weather: null,
+      weatherError: '',
     }
   },
   computed: {
@@ -234,6 +241,12 @@ export default {
         .then((json) => {
           this.weather = json.data.data[0]
         })
+        .catch(() => {
+          this.weatherError = '天气查询异常，点我重试!'
+        })
+    },
+    weatherLoad() {
+      this.tianqi()
     },
     init() {
       this.query()
@@ -399,7 +412,7 @@ export default {
   }
 }
 .flex {
-  z-index: 2;
+  z-index: 1;
   display: flex;
   position: relative;
   i {
@@ -415,6 +428,12 @@ export default {
   position: absolute;
   right: 0;
   top: 2px;
-  z-index: 1;
+  z-index: 2;
+}
+.weatherErr {
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 </style>

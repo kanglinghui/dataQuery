@@ -16,6 +16,7 @@
     "@toast-ui/editor-plugin-table-merged-cell": "^3.0.0",
     "@toast-ui/editor-plugin-uml": "^3.0.1",
     "axios": "^0.21.1",
+    "compression-webpack-plugin": "^5.0.1",
     "core-js": "^3.6.4",
     "element-ui": "^2.15.3",
     "vue": "^2.6.11",

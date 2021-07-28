@@ -37,6 +37,7 @@
               </div>
 
               <span
+                class="name-box"
                 style="
                   font-size: 12px;
                   overflow: hidden;
@@ -44,11 +45,8 @@
                   width: 170px;
                   text-overflow: ellipsis;
                 "
-                >{{
-                  item.tableName.length > 13
-                    ? item.tableName.slice(0, 13) + '...'
-                    : item.tableName
-                }}<i style="margin-left: 5px">{{ item.EnTableName }}</i></span
+                ><span class="name-zn">{{ item.tableName }}</span
+                ><i style="margin-left: 5px">{{ item.EnTableName }}</i></span
               >
             </el-tooltip>
           </div>
@@ -444,5 +442,14 @@ export default {
   &:hover {
     text-decoration: underline;
   }
+}
+.name-box {
+  color: rgb(144, 147, 153);
+  .name-zn {
+    color: #fff;
+  }
+}
+/deep/.el-menu .is-active span {
+  color: #ffd04b;
 }
 </style>

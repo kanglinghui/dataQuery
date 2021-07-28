@@ -1,5 +1,5 @@
 <template>
-  <div class="home-md" :style="isMenu ? '' : 'padding:0;'">
+  <div class="home-md" :style="isMenu ? '' : 'padding:0;'" v-loading="loading">
     <div class="left-menu" v-show="!htmlShow && isMenu">
       <el-input
         size="mini"
@@ -28,7 +28,7 @@
           <div slot="title">
             <el-tooltip
               placement="right"
-              :disabled="item.tableName.length < 14"
+              :disabled="item.tableName.length + item.EnTableName.length < 16"
             >
               <div slot="content">
                 中文表名：{{ item.tableName }}<br />英文表名：{{
@@ -36,16 +36,19 @@
                 }}
               </div>
 
-              <span style="font-size: 12px"
+              <span
+                style="
+                  font-size: 12px;
+                  overflow: hidden;
+                  display: inline-block;
+                  width: 170px;
+                  text-overflow: ellipsis;
+                "
                 >{{
                   item.tableName.length > 13
                     ? item.tableName.slice(0, 13) + '...'
                     : item.tableName
-                }}<i
-                  style="margin-left: 5px"
-                  v-if="item.tableName.length < 14"
-                  >{{ item.EnTableName }}</i
-                ></span
+                }}<i style="margin-left: 5px">{{ item.EnTableName }}</i></span
               >
             </el-tooltip>
           </div>
@@ -70,7 +73,7 @@
               size="mini"
               icon="el-icon-refresh"
               style="margin-bottom: 20px; z-index: 3"
-              @click="rest"
+              @click="reload"
               plain
               >刷 新</el-button
             >
@@ -183,7 +186,6 @@ import axios from 'axios'
 // import { debounce } from "@/utils/index.js";
 const moment = require('moment')
 export default {
-  name: 'Login',
   components: {
     ViewUI,
   },
@@ -202,6 +204,7 @@ export default {
       mobile: false,
       weather: null,
       weatherError: '',
+      loading: false,
     }
   },
   computed: {
@@ -256,10 +259,12 @@ export default {
       this.$refs.addDialog.title = '新增'
       this.$refs.addDialog.dialogShow = true
     },
-    rest() {
-      this.value = ''
-      this.activeIdx = undefined
-      this.query()
+    reload() {
+      query({ tableName: this.value }).then((json) => {
+        this.menuList = json.list
+        this.tableData = json.list
+        this.$message.success('更新成功!')
+      })
     },
     getData() {
       query({ tableName: this.value }).then((json) => {
@@ -294,9 +299,13 @@ export default {
     },
     query() {
       //查询
-      query({ tableName: this.value }).then((json) => {
-        this.tableData = json.list
-      })
+      query({ tableName: this.value })
+        .then((json) => {
+          this.tableData = json.list
+        })
+        .catch(() => {
+          this.loading = false
+        })
     },
     back() {
       //返回操作

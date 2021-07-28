@@ -11,6 +11,7 @@ import {
   Tooltip,
   Input,
   Message,
+  Loading,
 } from 'element-ui'
 import 'tui-color-picker/dist/tui-color-picker.css'
 import '@toast-ui/editor/dist/toastui-editor.css'
@@ -26,6 +27,7 @@ Vue.use(Menu)
 Vue.use(MenuItem)
 Vue.use(Tooltip)
 Vue.use(Input)
+Vue.use(Loading)
 Vue.prototype.$message = Message
 Vue.config.productionTip = false
 // Vue.use(ElementUI, {

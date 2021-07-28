@@ -290,8 +290,10 @@ export default {
       td {
         //     color: #606266;
         white-space: nowrap;
-        padding: 10px;
+        padding: 5px;
         font-size: 12px;
+        line-height: 20px;
+        height: 20px;
         //     line-height: 14px;
         text-align: center;
         //     border: 1px solid #ebeef5;
@@ -307,6 +309,8 @@ export default {
         background: #f4f4f5;
       }
       tr {
+        line-height: 20px;
+        height: 20px;
         transition: 0.5s;
         &:hover {
           background-color: #f2f6fc;

@@ -46,42 +46,42 @@ export default {
   data() {
     return {
       form: {
-        tableName: "",
-        name: "",
-        EnTableName: "",
+        tableName: '',
+        name: '',
+        EnTableName: '',
         // nameUrl: "",
       },
-      title: "新增",
+      title: '新增',
       dialogShow: false,
       rules: {
         tableName: [
-          { required: true, message: "请输入表中文名", trigger: "blur" },
+          { required: true, message: '请输入表中文名', trigger: 'blur' },
         ],
         EnTableName: [
-          { required: true, message: "请输入表名", trigger: "blur" },
+          { required: true, message: '请输入表名', trigger: 'blur' },
         ],
-        name: [{ required: true, message: "描述", trigger: "blur" }],
+        name: [{ required: true, message: '描述', trigger: 'blur' }],
       },
-    };
+    }
   },
   methods: {
     submit(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          if (this.title === "新增") {
-            this.$emit("sub", this.form);
+          if (this.title === '新增') {
+            this.$emit('sub', this.form)
           } else {
-            this.$emit("edit", this.form);
+            this.$emit('edit', this.form)
           }
-          this.dialogShow = false;
+          this.dialogShow = false
         }
-      });
+      })
     },
     close() {
-      this.$refs["form"].resetFields();
+      this.$refs['form'].resetFields()
     },
   },
-};
+}
 </script>
 <style lang="scss" scoped>
 /deep/.el-dialog__header {

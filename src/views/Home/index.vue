@@ -287,7 +287,7 @@ export default {
     },
     toView(row) {
       //查看html
-      if (!row.html) {
+      if (!row.md) {
         this.$message.error('当前内容还未发布!')
         return
       }
